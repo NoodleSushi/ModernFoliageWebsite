@@ -26,6 +26,69 @@ function get_prod_info(mysqli $con, int $prod_id): array|false|null
     return $stmt->get_result()->fetch_assoc();
 }
 
+function list_prod(mysqli $con): array
+{
+    $stmt = $con->prepare(
+        "SELECT
+            p.ProductID AS ProductID,
+            p.Name AS Name, 
+            Price, 
+            AvailQuantity AS Quantity,
+            COALESCE((
+                SELECT (SELECT AvailQuantity FROM stockinfo AS si WHERE si.ProductID = p.ProductID) - SUM(oi.Quantity)
+                FROM orderitem AS oi
+                WHERE	
+                    oi.ProductID = p.ProductID
+            ), 0) AS RemainingQuantity,
+            COALESCE((
+                SELECT SUM(oi.Quantity * oi.PriceEach)
+                FROM orderitem AS oi
+                WHERE	
+                    oi.ProductID = p.ProductID
+            ), 0) AS RunningBalance
+        FROM product AS p
+        JOIN stockinfo AS si
+            ON si.ProductID = p.ProductID
+        ORDER BY Name ASC"
+    );
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+function list_prod_by_type(mysqli $con, int $prod_type_id): array
+{
+    $stmt = $con->prepare(
+        "SELECT
+            p.ProductID AS ProductID,
+            p.Name AS Name, 
+            Price, 
+            AvailQuantity AS Quantity,
+            COALESCE((
+                SELECT (SELECT AvailQuantity FROM stockinfo AS si WHERE si.ProductID = p.ProductID) - SUM(oi.Quantity)
+                FROM orderitem AS oi
+                WHERE	
+                    oi.ProductID = p.ProductID
+            ), 0) AS RemainingQuantity,
+            COALESCE((
+                SELECT SUM(oi.Quantity * oi.PriceEach)
+                FROM orderitem AS oi
+                WHERE	
+                    oi.ProductID = p.ProductID
+            ), 0) AS RunningBalance
+        FROM product AS p
+        JOIN producttype AS prodt
+            ON prodt.ProductTypeID = p.ProductTypeID
+        JOIN stockinfo AS si
+            ON si.ProductID = p.ProductID
+        WHERE
+            prodt.ProductTypeID = ?
+        ORDER BY Name ASC"
+    );
+    $stmt->bind_param("i", $prod_type_id);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
 
 // producttype
 
