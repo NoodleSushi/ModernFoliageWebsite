@@ -34,7 +34,7 @@ include_once("utils_db.php");
 $pot_species = array();
 
 foreach (list_plantspecies($con) as $row) {
-    $pot_colors[] = array(
+    $pot_species[] = array(
         "id" => intval($row["PlantSpeciesID"]),
         "name" => $row["Name"]
     );
@@ -43,6 +43,6 @@ foreach (list_plantspecies($con) as $row) {
 $con->close();
 
 echo json_encode(array(
-    "pot_species" => $pot_colors,
+    "pot_species" => $pot_species,
     "success" => true
 ));
