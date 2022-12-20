@@ -1,8 +1,8 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-CREATE DATABASE modernfoliage;
+CREATE DATABASE MFdb;
+USE MFdb;
 
 CREATE TABLE customer(
     CustomerID INT(11) AUTO_INCREMENT NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE customer(
 );
 
 CREATE TABLE cart(
-    CartID     INT(11) AUTO_INCREMENT  NOT NULL,
+    CartID INT(11) AUTO_INCREMENT NOT NULL,
     CustomerID INT(11) NOT NULL,
 
     CONSTRAINT cart PRIMARY KEY (CartID),
@@ -25,15 +25,15 @@ CREATE TABLE cart(
 );
 
 CREATE TABLE producttype(
-    ProductTypeID     INT(11) AUTO_INCREMENT  NOT NULL,
+    ProductTypeID INT(11) AUTO_INCREMENT NOT NULL,
     Name varchar(100) NOT NULL,
 
     CONSTRAINT producttype PRIMARY KEY (ProductTypeID)
 );
 
 CREATE TABLE producttypedisplay(
-    ProductTypeDisplayID     INT(11) AUTO_INCREMENT  NOT NULL,
-    ProductTypeID     INT(11) NOT NULL,
+    ProductTypeDisplayID INT(11) AUTO_INCREMENT NOT NULL,
+    ProductTypeID INT(11) NOT NULL,
     Name varchar(100) NOT NULL,
     Description varchar(300) NOT NULL,
 
@@ -42,8 +42,8 @@ CREATE TABLE producttypedisplay(
 );
 
 CREATE TABLE product(
-    ProductID     INT(11) AUTO_INCREMENT  NOT NULL,
-    ProductTypeID     INT(11)  NOT NULL,
+    ProductID INT(11) AUTO_INCREMENT NOT NULL,
+    ProductTypeID INT(11) NOT NULL,
     Name varchar(100) NOT NULL,
     Price decimal(7,5) NOT NULL,
 
@@ -52,8 +52,8 @@ CREATE TABLE product(
 );
 
 CREATE TABLE productdisplay(
-    ProductInfoID     INT(11) AUTO_INCREMENT  NOT NULL,
-    ProductID     INT(11)  NOT NULL,
+    ProductInfoID INT(11) AUTO_INCREMENT NOT NULL,
+    ProductID INT(11)  NOT NULL,
     Name varchar(100) NOT NULL,
     Description varchar(300) NOT NULL,
     ThumbPath varchar(50) NOT NULL,
@@ -64,18 +64,18 @@ CREATE TABLE productdisplay(
 );
 
 CREATE TABLE cartitem(
-    CartItemID     INT(11) AUTO_INCREMENT  NOT NULL,
-    CartID     INT(11)  NOT NULL,
+    CartItemID INT(11) AUTO_INCREMENT NOT NULL,
+    CartID INT(11) NOT NULL,
     ProductID INT(11) NOT NULL,
     Quantity INT(5) NOT NULL,
 
     CONSTRAINT cart PRIMARY KEY (CartItemID),
     CONSTRAINT cart_FK1 FOREIGN KEY (CartID) REFERENCES cart(CartID),
-    COSTRAINT cart_FK2 FOREIGN KEY (ProductID) REFERENCES product(ProductID)
+    CONSTRAINT cart_FK2 FOREIGN KEY (ProductID) REFERENCES product(ProductID)
 );
 
 CREATE TABLE deliverymode(
-    DeliveryModeID     INT(11) AUTO_INCREMENT  NOT NULL,
+    DeliveryModeID INT(11) AUTO_INCREMENT NOT NULL,
     Name varchar(50) NOT NULL,
     Price decimal(7,2) NOT NULL,
 
@@ -83,7 +83,7 @@ CREATE TABLE deliverymode(
 );
 
 CREATE TABLE galleryphoto(
-    GalleryPhotoID     INT(11) AUTO_INCREMENT  NOT NULL,
+    GalleryPhotoID INT(11) AUTO_INCREMENT NOT NULL,
     ProductInfoID INT(11) NOT NULL,
     PhotoPath varchar(128) NOT NULL,
     GalleryOrder int(11) NOT NULL,
@@ -94,8 +94,8 @@ CREATE TABLE galleryphoto(
 );
 
 CREATE TABLE orders(
-    OrderID     INT(11) AUTO_INCREMENT  NOT NULL,
-    CustomerID     INT(11)  NOT NULL,
+    OrderID INT(11) AUTO_INCREMENT NOT NULL,
+    CustomerID INT(11) NOT NULL,
     DeliveryModeID INT(11) NOT NULL,
     Address VARCHAR(150) NOT NULL,
     TotalPrice decimal(7,2) NOT NULL,
@@ -103,55 +103,53 @@ CREATE TABLE orders(
 
     CONSTRAINT orders PRIMARY KEY (OrderID),
     CONSTRAINT orders_FK1 FOREIGN KEY (CustomerID) REFERENCES orders(OrderID),
-    COSTRAINT orders_FK2 FOREIGN KEY (DeliveryModeID) REFERENCES deliverymode(DeliveryModeID)
+    CONSTRAINT orders_FK2 FOREIGN KEY (DeliveryModeID) REFERENCES deliverymode(DeliveryModeID)
 );
 
 CREATE TABLE orderitem(
-    OrderItemID     INT(11) AUTO_INCREMENT  NOT NULL,
-    OrderID     INT(11)  NOT NULL,
+    OrderItemID INT(11) AUTO_INCREMENT NOT NULL,
+    OrderID INT(11) NOT NULL,
     ProductID INT(11) NOT NULL,
     PriceEach decimal(7,2) NOT NULL,
     Quantity INT(5) NOT NULL,
 
     CONSTRAINT orderitem PRIMARY KEY (OrderItemID),
     CONSTRAINT orderitem_FK1 FOREIGN KEY (OrderID) REFERENCES orders(OrderID),
-    COSTRAINT orderitem_FK2 FOREIGN KEY (ProductID) REFERENCES product(ProductID)
+    CONSTRAINT orderitem_FK2 FOREIGN KEY (ProductID) REFERENCES product(ProductID)
 );
 
 CREATE TABLE plantspecies(
-    PlantSpeciesID     INT(11) AUTO_INCREMENT  NOT NULL,
+    PlantSpeciesID INT(11) AUTO_INCREMENT NOT NULL,
     Name varchar(60) NOT NULL,
 
     CONSTRAINT plantspecies PRIMARY KEY (PlantSpeciesID)
 );
 
 CREATE TABLE plantproperties(
-    PlantPropertiesID     INT(11) AUTO_INCREMENT  NOT NULL,
+    PlantPropertiesID INT(11) AUTO_INCREMENT NOT NULL,
     ProductID INT(11) NOT NULL,
     PlantSpeciesID INT(11) NOT NULL,
 
-
     CONSTRAINT plantproperties PRIMARY KEY (PlantPropertiesID),
-    COSTRAINT plantproperties_FK2 FOREIGN KEY (ProductID) REFERENCES product(ProductID),
-     CONSTRAINT plantproperties_FK1 FOREIGN KEY (PlantSpeciesID) REFERENCES plantspecies(PlantSpeciesID)
+    CONSTRAINT plantproperties_FK2 FOREIGN KEY (ProductID) REFERENCES product(ProductID),
+	CONSTRAINT plantproperties_FK1 FOREIGN KEY (PlantSpeciesID) REFERENCES plantspecies(PlantSpeciesID)
 );
 
 CREATE TABLE potcolor(
-     PotColorID     INT(11) AUTO_INCREMENT  NOT NULL,
-     Name varchar(60) NOT NULL,
+	PotColorID INT(11) AUTO_INCREMENT NOT NULL,
+	Name varchar(60) NOT NULL,
 
     CONSTRAINT potcolor PRIMARY KEY (PotColorID)
 );
 
 CREATE TABLE potproperties(
-    PotPropertiesID     INT(11) AUTO_INCREMENT  NOT NULL,
+    PotPropertiesID INT(11) AUTO_INCREMENT NOT NULL,
     ProductID INT(11) NOT NULL,
     PotColorID INT(11) NOT NULL,
 
-
     CONSTRAINT potproperties PRIMARY KEY (PotPropertiesID),
-    COSTRAINT potproperties_FK1 FOREIGN KEY (ProductID) REFERENCES product(ProductID),
-     CONSTRAINT potproperties_FK2 FOREIGN KEY (PotColorID) REFERENCES potproperties(PotColorID)
+    CONSTRAINT potproperties_FK1 FOREIGN KEY (ProductID) REFERENCES product(ProductID),
+	CONSTRAINT potproperties_FK2 FOREIGN KEY (PotColorID) REFERENCES potproperties(PotColorID)
 );
 
 CREATE TABLE stockinfo(
