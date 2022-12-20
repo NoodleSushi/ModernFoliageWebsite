@@ -44,5 +44,5 @@ $con->close();
 
 echo json_encode(array(
     "pot_colors" => $pot_colors,
-    "success" => $success
+    "success" => true
 ));
