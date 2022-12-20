@@ -87,12 +87,52 @@ body {
     margin-top: 0;
 }
 
+
+
+
+/*home*/
+
+main{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.content{
+    width: 90%;
+}
+
+
+.show{
+
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+.title{
+    color: white; 
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
+    font-size: 250%;
+}
+
+.desc{
+    margin-bottom: 0%; 
+    margin-top: 1.5%;
+}
+
+.card strong{
+    color: red;
+}
+
+
 .card{
     height: 17em;
     width: 14em;
     flex: auto;
     margin: 1.7%;
-    float: left;
     text-align: left;
 }
 

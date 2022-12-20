@@ -10,19 +10,18 @@ session_start();
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="../src/css/main.css">
   <link rel="stylesheet" href="../src/css/orderStyles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js%22%3E"></script>
+
+
   <title>Modern Foliage Homepage</title>
 </head>
 
 <body onload="ready()">
   <div>
-    <main style="display: flexbox; position: relative; align-items: center; flex:auto;">
-      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #314529;">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #314529;">
       <link rel="stylesheet" href="../src/css/orderStyles.css">
         <a class="logo-text" href="../src/public/home.php" style="color: white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:x-large;">Modern Foliage</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,76 +33,94 @@ session_start();
             </li>
           </ul>
 
-          <button name="btnfaq" class="btn btn-secondary btn-lg" onclick="faqClick(event)" style="margin-right: 2%; background-color: transparent; border: none;">FAQ</button>
-          <button name="btncart" class="btn btn-secondary btn-lg" onclick="cartClick(event)" style="margin-right: 2%; background-color: transparent; border: none;">My Cart</button>
-          <button name="btnorder" class="btn btn-secondary btn-lg" onclick="ordersClick(event)" style="margin-right: 2%; background-color: transparent; border: none;">My Orders</button>
+          <a href=""><button name="btnfaq" class="btn btn-secondary btn-lg" onclick="faqClick(event)" style="margin-right: 2%; background-color: transparent; border: none;">FAQ</button></a>
+          <a href=""><button name="btncart" class="btn btn-secondary btn-lg" onclick="cartClick(event)" style="margin-right: 2%; background-color: transparent; border: none;">My Cart</button></a>
+          <a href="order.php"><button name="btnorder" class="btn btn-secondary btn-lg" onclick="ordersClick(event)" style="margin-right: 2%; background-color: transparent; border: none;">My Orders</button></a>
           <button name="btnsignout" class="btn btn-secondary btn-lg" onclick="signoutClick(event)" style="background-color: transparent; border: none;">Sign Out</button>
           
         </div>
       </nav>
+    <main>
+
 
       <div class="content" style="margin: 3%;">
-        <div>
-          <h1 style="color: white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 250%;">POTS</h1>
+        <div class="pots">
+          <div class="top">
+          <h1 class="title">POTS</h1>
           <hr class="border">
-          <center>
+          </div>
+          <div class="show">
             <div class="card" type="button" echo "href="../src/public/page_product.php">
               <img alt="MF Pot" class="card_img" src="../img/pot.png">
-              <p style="margin-bottom: 0%; margin-top: 1.5%;">MUSKOT Plant pot</p>
-              <strong style="color: red;">₱450</strong>
+              <p class="desc" >MUSKOT Plant pot</p>
+              <strong >₱450</strong>
             </div>
+
             <div class="card" type="button" href="../src/public/page_product.php">
               <img alt="MF Pot" class="card_img" src="../img/pot.png">
-              <p style="margin-bottom: 0%; margin-top: 1.5%;">MUSKOT Plant pot</p>
-              <strong style="color: red;">₱450</strong>
+              <p class="desc">MUSKOT Plant pot</p>
+              <strong>₱450</strong>
             </div>
+            
             <div class="card" type="button" href="../src/public/page_product.php">
               <img alt="MF Pot" class="card_img" src="../img/pot.png">
-              <p style="margin-bottom: 0%; margin-top: 1.5%;">MUSKOT Plant pot</p>
-              <strong style="color: red;">₱450</strong>
+              <p class="desc">MUSKOT Plant pot</p>
+              <strong>₱450</strong>
             </div>
+
             <div class="card" type="button" href="../src/public/page_product.php">
               <img alt="MF Pot" class="card_img" src="../img/pot.png">
-              <p style="margin-bottom: 0%; margin-top: 1.5%;">MUSKOT Plant pot</p>
-              <strong style="color: red;">₱450</strong>
+              <p class="desc">MUSKOT Plant pot</p>
+              <strong>₱450</strong>
             </div>
+
             <button name="btnfmorePots" class="browseMore" href="../src/public/pots.php">
               <strong>Browse for more pots</strong>
               <img alt="Next Arrow" class="card_img" src="../img/arrow.png">
             </button>
-          </center>
+          </div>
+        </div>
+
+        <div class="plants">
+          <div class="top">
+          <h1 class="title">PLANTS</h1>
+          <hr class="border">
+          </div>
+        
+          <div class="show">
+            <div class="card" type="button" href="../src/public/page_product.php">
+              <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
+              <p class="desc">FEJKA Artificial potted plant </p>
+              <strong>₱450</strong>
+            </div>
+
+            <div class="card" type="button" href="../src/public/page_product.php">
+              <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
+              <p class="desc">FEJKA Artificial potted plant </p>
+              <strong>₱400</strong>
+            </div>
+
+            <div class="card" type="button" href="../src/public/page_product.php">
+              <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
+              <p class="desc">FEJKA Artificial potted plant </p>
+              <strong>₱400</strong>
+            </div>
+
+            <div class="card" type="button" href="../src/public/page_product.php">
+              <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
+              <p class="desc">FEJKA Artificial potted plant </p>
+              <strong>₱400</strong>
+            </div>
+
+            <button name="btnfmorePlants" class="browseMore" href="../src/public/plants.php">
+              <strong>Browse for more plants</strong>
+              <img alt="Next Arrow" class="card_img" src="../img/arrow.png">
+            </button>
+          </div>
         </div>
         
-        <h1 style="color: white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 250%;">PLANTS</h1>
-        <hr class="border">
-        <center style="display: inline-flexbox; position: relative;">
-          <div class="card" type="button" href="../src/public/page_product.php">
-            <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
-            <p style="margin-bottom: 0%; margin-top: 1.5%;">FEJKA Artificial potted plant </p>
-            <strong style="color: red;">₱450</strong>
-          </div>
-          <div class="card" type="button" href="../src/public/page_product.php">
-            <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
-            <p style="margin-bottom: 0%; margin-top: 1.5%;">FEJKA Artificial potted plant </p>
-            <strong style="color: red;">₱400</strong>
-          </div>
-          <div class="card" type="button" href="../src/public/page_product.php">
-            <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
-            <p style="margin-bottom: 0%; margin-top: 1.5%;">FEJKA Artificial potted plant </p>
-            <strong style="color: red;">₱400</strong>
-          </div>
-          <div class="card" type="button" href="../src/public/page_product.php">
-            <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
-            <p style="margin-bottom: 0%; margin-top: 1.5%;">FEJKA Artificial potted plant </p>
-            <strong style="color: red;">₱400</strong>
-          </div>
-          <button name="btnfmorePlants" class="browseMore" href="../src/public/plants.php">
-            <strong>Browse for more plants</strong>
-            <img alt="Next Arrow" class="card_img" src="../img/arrow.png">
-          </button>
-        </center>
       </div>
-
+  </main>
   <script type="text/javascript" src="../src/js/auth.js"></script>
 </body>
 
