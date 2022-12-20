@@ -121,7 +121,7 @@ CREATE TABLE orders(
     Dates date NOT NULL,
 
     PRIMARY KEY (OrderID),
-    FOREIGN KEY (CustomerID) REFERENCES orders(OrderID),
+    FOREIGN KEY (CustomerID) REFERENCES customer(CustomerID),
     FOREIGN KEY (DeliveryModeID) REFERENCES deliverymode(DeliveryModeID)
 );
 
