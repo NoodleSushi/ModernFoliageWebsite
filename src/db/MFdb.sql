@@ -114,6 +114,7 @@ CREATE TABLE orders(
     Address VARCHAR(150) NOT NULL,
     Price decimal(10,2) NOT NULL,
     Dates date NOT NULL,
+    Completed TINYINT(1) DEFAULT 0,
 
     PRIMARY KEY (OrderID),
     FOREIGN KEY (CustomerID) REFERENCES customer(CustomerID),
