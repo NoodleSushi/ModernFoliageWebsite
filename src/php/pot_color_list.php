@@ -35,7 +35,7 @@ $pot_colors = array();
 
 foreach (list_potcolor($con) as $row) {
     $pot_colors[] = array(
-        "id" => $row["PotColorID"],
+        "id" => intval($row["PotColorID"]),
         "name" => $row["Name"]
     );
 }

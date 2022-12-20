@@ -51,8 +51,8 @@ if ($success) {
     $prod_type = $prod_row["ProductType"];
     $prod["product_type"] = $prod_row["ProductType"];
     $prod["name"] = $prod_row["Name"];
-    $prod["price"] = $prod_row["Price"];
-    $prod["avail_quantity"] = $prod_row["AvailQuantity"];
+    $prod["price"] = floatval($prod_row["Price"]);
+    $prod["avail_quantity"] = intval($prod_row["AvailQuantity"]);
     if ($prod_type == "Plant") {
         $prod["plant_species"] = $prod_row["PlantSpecies"];
     } else if ($prod_type == "Pot") {
