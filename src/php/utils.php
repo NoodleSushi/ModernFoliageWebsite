@@ -2,7 +2,7 @@
 // $type: https://www.php.net/manual/en/function.gettype.php
 function parse_param(string $type, string $param, bool &$success, bool $isOptional = false, $default = null)
 {
-    $out = $_REQUEST[$param];
+    $out = $_REQUEST[$param] ?? null;
     switch ($type) {
         case "i":
         case "int":
@@ -18,12 +18,14 @@ function parse_param(string $type, string $param, bool &$success, bool $isOption
             $type = "string";
             break;
     }
-    if ($type == "integer" && is_numeric($out))
-        return intval($out);
-    else if ($type == "double" && is_numeric($out))
-        return floatval($out);
-    else if (gettype($type) == $type)
-        return $out;
+    if (!is_null($out)) {
+        if ($type == "integer" && is_numeric($out))
+            return intval($out);
+        else if ($type == "double" && is_numeric($out))
+            return floatval($out);
+        else if (gettype($type) == $type)
+            return $out;
+    }
     if ($isOptional)
         return $default;
     else
