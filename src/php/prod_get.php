@@ -1,7 +1,7 @@
 <?php
 /*
 parameters:
-    int prod_id - product id
+    int prod_id - product(ProductID)
 
 returns:
     {
