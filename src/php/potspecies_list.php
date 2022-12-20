@@ -1,28 +1,28 @@
 <?php
 /*
-Returns a list of pot colors
+Returns a list of pot species
 
 returns:
     {
-        "pot_colors": [
+        "pot_species": [
             {
                 "id: 1,
-                "name": "red"
+                "name": "Aglaonema"
             },
             {
                 "id: 2,
-                "name": "blue"
+                "name": "Alocasia"
             }
             {
                 "id: 3,
-                "name": "green"
+                "name": "Anthurium"
             }
         ]
         "success": true
     }
 
     {
-        "pot_colors": {};
+        "pot_species": {};
         "success": false
     }
 */
@@ -43,6 +43,6 @@ foreach (list_plantspecies($con) as $row) {
 $con->close();
 
 echo json_encode(array(
-    "pot_colors" => $pot_colors,
+    "pot_species" => $pot_colors,
     "success" => true
 ));
