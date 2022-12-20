@@ -37,6 +37,13 @@ function get_prod_type(mysqli $con, int $id): array|false|null
     return $stmt->get_result()->fetch_assoc();
 }
 
+function list_prod_type(mysqli $con): array
+{
+    $stmt = $con->prepare("SELECT * FROM producttype ORDER BY Name ASC");
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
 
 // product
 
