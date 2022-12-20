@@ -16,6 +16,20 @@ CREATE TABLE customer(
     PRIMARY KEY (CustomerID)
 );
 
+CREATE TABLE adminpriv(
+    AdminPrivID INT(11) AUTO_INCREMENT NOT NULL,
+    CustomerID INT(11) NOT NULL,
+
+    PRIMARY KEY (AdminPrivID),
+    FOREIGN KEY (CustomerID) REFERENCES customer(CustomerID)
+);
+
+INSERT INTO customer (Fname, Lname, Email, Password) 
+VALUES ("Admin", "Admin", "admin@gmail.com", "adminpass");
+
+INSERT INTO adminpriv (CustomerID)
+VALUES ((SELECT CustomerID FROM customer WHERE Email = "admin@gmail.com"));
+
 CREATE TABLE cart(
     CartID INT(11) AUTO_INCREMENT NOT NULL,
     CustomerID INT(11) NOT NULL,
