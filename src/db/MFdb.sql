@@ -8,10 +8,10 @@ CREATE TABLE customer(
     CustomerID INT(11) AUTO_INCREMENT NOT NULL,
     Fname varchar(100) NOT NULL,
     Lname varchar(20) NOT NULL,
-    PhoneNum varchar(15) NOT NULL,
+    PhoneNum varchar(15) NOT NULL DEFAULT "",
     Email varchar(255) NOT NULL,
     Password varchar(20) NOT NULL,
-    Address varchar(150) NOT NULL,
+    Address varchar(150) NOT NULL DEFAULT "",
 
     PRIMARY KEY (CustomerID)
 );
