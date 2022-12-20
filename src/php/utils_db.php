@@ -95,6 +95,16 @@ function get_plantproperties(mysqli $con, int $prod_id): array|false|null
 }
 
 
+// plantspecies
+
+function list_plantspecies(mysqli $con): array
+{
+    $stmt = $con->prepare("SELECT * FROM plantspecies ORDER BY Name ASC");
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+
 // potproperties
 
 function insert_potproperties(mysqli $con, int $prod_id, int $pot_color_id): int
