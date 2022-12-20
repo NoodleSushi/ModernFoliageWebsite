@@ -11,13 +11,13 @@ function get_prod_info(mysqli $con, int $prod_id): array|false|null
             ON prodt.ProductTypeID = p.ProductTypeID
         JOIN stockinfo AS si
             ON si.ProductID = p.ProductID
-        JOIN plantproperties AS plap
+        LEFT JOIN plantproperties AS plap
             ON plap.ProductID = p.ProductID
-        JOIN plantspecies AS plas
+        LEFT JOIN plantspecies AS plas
             ON plas.PlantSpeciesID = plap.PlantSpeciesID
-        JOIN potproperties AS potp
+        LEFT JOIN potproperties AS potp
             ON potp.ProductID = p.ProductID
-        JOIN potcolor AS potc
+        LEFT JOIN potcolor AS potc
             ON potc.PotColorID = potp.PotColorID
         WHERE p.ProductID = ?"
     );
