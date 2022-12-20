@@ -30,7 +30,7 @@
 
     // Check if email already exists
     if($isValid){
-        $stmt = $con->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt = $con->prepare("SELECT * FROM customer WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -43,7 +43,7 @@
 
     // Insert records
     if($isValid){
-        $insertSQL = "INSERT INTO users(fname,lname,email,password) values(?,?,?,?)";
+        $insertSQL = "INSERT INTO customer(fname,lname,email,password) values(?,?,?,?)";
         $stmt = $con->prepare($insertSQL);
         $password = password_hash($password, PASSWORD_DEFAULT);
         $stmt->bind_param("ssss",$fname,$lname,$email,$password);

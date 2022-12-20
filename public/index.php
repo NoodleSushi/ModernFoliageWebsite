@@ -20,16 +20,10 @@
 </div>
 <body><br><br><br><br><br>
     <div class="signup-form">
-        <form id="signupForm" method="post" onsubmit="signupSubmit(event)">
-            <h2 style="text-align: center;">Sign Up</h2>
-            <p style="text-align: center;">Please fill in this form to create an account!</p>
+        <form id="signinForm" method="get" onsubmit="signinSubmit(event)">
+            <h2 style="text-align: center;">Sign In</h2>
+            <p style="text-align: center;">Please fill in this form to sign in to your account!</p>
             <hr>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-xs-6"><input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" required="required"></div>
-                    <div class="col-xs-6"><input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" required="required"></div>
-                </div>        	
-            </div>
             <div class="form-group">
                 <input type="email" class="form-control" name="email" id="email" placeholder="Email" required="required">
             </div>
@@ -37,13 +31,10 @@
                 <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="required">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required="required">
-            </div>        
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary btn-lg" name="btnsignup" id="btnsignup" value="Sign Up"/>
+                <input type="submit" name="btnsignin" class="btn btn-primary btn-lg" value="Sign In"/>
             </div>
         </form>
-        <div class="hint-text">Already have an account? <a href="index.php">Sign in here</a></div>
+        <div class="hint-text">Don't have an account? <a href="signup.php">Sign up here</a></div>
     </div>
 </body>
 </html>
