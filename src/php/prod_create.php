@@ -37,10 +37,9 @@ if ($success) {
     }
 }
 
+$con->close();
 
 echo json_encode(array(
     "product_id" => $prod_id,
     "success" => $success
 ));
-
-$con->close();
