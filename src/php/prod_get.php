@@ -1,7 +1,9 @@
 <?php
 /*
+Returns product information, varies depending on its product type
+
 parameters:
-    int prod_id - product id
+    int prod_id - product(ProductID)
 
 returns:
     {
