@@ -1,59 +1,57 @@
-<?php 
-    include_once("db_connect.php");
-    $retVal = "";
-    $isValid = true;
-    $status = 400;
-    $data = []; 
+<?php
+include_once("db_connect.php");
+$retVal = "";
+$isValid = true;
+$status = 400;
+$data = [];
 
-    $email = trim($_REQUEST['email']);
-    $password = trim($_REQUEST['password']);
+$email = trim($_REQUEST['email']);
+$password = trim($_REQUEST['password']);
+// $email = 'admin@gmail.com';
+// $password = 'adminpass';
+// Check fields are empty or not
+if (empty($email) || empty($password)) {
+    $isValid = false;
+    $retVal = "Please fill all fields.";
+}
 
-    // Check fields are empty or not
-    if($email == '' || $password == ''){
-        $isValid = false;
-        $retVal = "Please fill all fields.";
+// Check if email is valid or not
+if ($isValid && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $isValid = false;
+    $retVal = "Invalid email.";
+}
+
+// Check if email already exists
+if ($isValid) {
+    $query = "SELECT * FROM customer WHERE Email = ? AND Password = ?";
+    if ($con->connect_error) {
+        $status = 201;
+        $retVal = "The sky is falling";
+        $data = "test";
     }
-
-    // Check if email is valid or not
-    if ($isValid && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $isValid = false;
-        $retVal = "Invalid email.";
-    }
-
-    // Check if email already exists
-    if($isValid){
-        $stmt = $con->prepare("SELECT * FROM customer WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $obj = mysqli_fetch_object($result); 
-        $stmt->close();
-        if($result->num_rows > 0){
-            $isPassword = password_verify ($password , $obj->password);
-            if($isPassword == true){
-                $status = 200;
-                $retVal = "Success.";
-                $data = $obj;
-                $_SESSION['user_email'] = $obj->email;
-                $_SESSION['user_id'] = $obj->id;
-                $_SESSION['user_fname'] = $obj->fname;
-                $_SESSION['user_lname'] = $obj->lname;
-                $_SESSION['user_name'] = "$obj->fname $obj->lname";
-            }else{
-                $retVal = "You may have entered a wrong email or password.";
-            }
-        }else{
-            $retVal = "Account does not exist.";
+    // if($result->num_rows > 0){
+    else {
+        $sth = $con->prepare($query);
+        $sth->execute(array($email, $password));
+        $result = $sth->fetch();
+        if ($result) {
+            $status = 200;
+            $retVal = "Login successful.";
+            $data = "test";
         }
+        // } else {
+        //     $retVal = "Invalid email or password.";
+        // }
     }
+}
 
-    $myObj = array(
-        'status' => $status,
-        'data' => $data,
-        'message' => $retVal  
-    );
-    $myJSON = json_encode($myObj, JSON_FORCE_OBJECT);
-    echo $myJSON;
+$myObj = array(
+    "status" => $status,
+    "data" => $data,
+    "message" => $retVal
+);
+$myJSON = json_encode($myObj, JSON_FORCE_OBJECT);
+echo $myJSON;
 
-    $con->close();
+$con->close();
 ?>
