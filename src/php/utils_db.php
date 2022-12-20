@@ -114,11 +114,11 @@ function get_potproperties(mysqli $con, int $prod_id): array|false|null
 }
 
 
-// pot color
+// potcolor
 
 function list_potcolor(mysqli $con): array
 {
-    $stmt = $con->prepare("SELECT * FROM potcolor");
+    $stmt = $con->prepare("SELECT * FROM potcolor ORDER BY Name ASC");
     $stmt->execute();
     return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 }
