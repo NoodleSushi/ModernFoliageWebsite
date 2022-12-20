@@ -95,7 +95,7 @@ function get_plantproperties(mysqli $con, int $prod_id): array|false|null
 }
 
 
-// pot properties
+// potproperties
 
 function insert_potproperties(mysqli $con, int $prod_id, int $pot_color_id): int
 {
@@ -111,4 +111,14 @@ function get_potproperties(mysqli $con, int $prod_id): array|false|null
     $stmt->bind_param("i", $prod_id);
     $stmt->execute();
     return $stmt->get_result()->fetch_assoc();
+}
+
+
+// pot color
+
+function list_potcolor(mysqli $con): array
+{
+    $stmt = $con->prepare("SELECT * FROM potcolor");
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 }
