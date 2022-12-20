@@ -1,6 +1,6 @@
 <?php
 // $type: https://www.php.net/manual/en/function.gettype.php
-function parse_param(string $type, string $param, bool &$success, bool $isOptional = false, $default = null)
+function parse_param(string $type, string $param, bool &$success = null, bool $isOptional = false, $default = null)
 {
     $out = $_REQUEST[$param] ?? null;
     switch ($type) {
