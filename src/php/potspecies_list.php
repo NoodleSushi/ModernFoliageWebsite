@@ -31,7 +31,7 @@ include_once("utils.php");
 include_once("db_connect.php");
 include_once("utils_db.php");
 
-$pot_colors = array();
+$pot_species = array();
 
 foreach (list_plantspecies($con) as $row) {
     $pot_colors[] = array(
