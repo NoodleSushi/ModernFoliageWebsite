@@ -27,9 +27,9 @@ session_start();
             </li>
           </ul>
 
-          <a href=""><button name="btnfaq" class="btn btn-secondary btn-lg" onclick="faqClick(event)" style="margin-right: 2%; background-color: transparent; border: none;">FAQ</button></a>
-          <a href=""><button name="btncart" class="btn btn-secondary btn-lg" onclick="cartClick(event)" style="margin-right: 2%; background-color: transparent; border: none;">My Cart</button></a>
-          <a href="order.php"><button name="btnorder" class="btn btn-secondary btn-lg" onclick="ordersClick(event)" style="margin-right: 2%; background-color: transparent; border: none;">My Orders</button></a>
+          <a href="faq.php"><button name="btnfaq" class="btn btn-secondary btn-lg"  style="margin-right: 2%; background-color: transparent; border: none;">FAQ</button></a>
+          <a href="cart.php"><button name="btncart" class="btn btn-secondary btn-lg"  style="margin-right: 2%; background-color: transparent; border: none;">My Cart</button></a>
+          <a href="order.php"><button name="btnorder" class="btn btn-secondary btn-lg"  style="margin-right: 2%; background-color: transparent; border: none;">My Orders</button></a>
           <button name="btnsignout" class="btn btn-secondary btn-lg" onclick="signoutClick(event)" style="background-color: transparent; border: none;">Sign Out</button>
           
         </div>
