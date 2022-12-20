@@ -1,0 +1,69 @@
+var xhttp = new XMLHttpRequest();
+
+function signupSubmit(e){
+    var data = $("#signupForm").serialize();
+	var url = "../src/php/signup_action.php";
+	var urlData = url+"?"+data;
+	xhttp.open("POST",urlData, true);
+	xhttp.send();
+	xhttp.onreadystatechange = function(){
+		
+		  var res = JSON.parse(this.responseText);
+		  
+		if(res["status"] == 200){
+			window.location.replace("../public/home.php");
+		}else{
+			alert(res["Error in signing up!"]);	
+		}
+		      
+		}
+        e.preventDefault();
+}
+
+function signinSubmit(e){
+	var data = $("#signinForm").serialize();
+	var url = "../src/php/signin_action.php";
+	var urlData = url+"?"+data;
+	xhttp.open("POST",urlData, true);
+	xhttp.send();
+	xhttp.onreadystatechange = function(){
+		
+		  var res = JSON.parse(this.responseText);
+		  
+		  if(res["status"] == 200){
+			window.location.replace("../public/home.php");
+		}else{
+			alert(res["Error in signing up!"]);	
+		}
+		      
+		}
+        e.preventDefault();
+	}
+
+
+
+function signoutClick(e){
+	var url = "../src/php/signout_action.php";
+	xhttp.open("POST",url, true);
+	xhttp.send();
+	xhttp.onreadystatechange = function(){
+		
+		  var res = JSON.parse(this.responseText);
+		  
+		  if(res["status"] == 200){
+			window.location.replace("../public/index.php");
+		}else{
+			alert(res["Error in signing out!"]);
+		}
+		      
+		}
+        e.preventDefault();
+}
+
+
+
+
+
+
+// to add functions for placing orders (cust side), when they place it kay it should show up on their orders page and will also
+// reflect sa admin side
