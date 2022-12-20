@@ -1,0 +1,28 @@
+.info{
+    text-align: justify;
+    width: 60%;
+    height: auto;
+    color: white;
+    padding: 1em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img{
+    width: 25%;
+    height: 5%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.faqone{
+    display: flex;
+    justify-content: center;
+}
+
+.faqtwo{
+    display: flex;
+    justify-content: center;
+}
