@@ -40,7 +40,7 @@ $prod_id = -1;
 
 // check if prod_type is valid
 if ($success) {
-    $prod_type_row = get_prod_type_row($con, $prod_type_id);
+    $prod_type_row = get_prod_type($con, $prod_type_id);
     $success = !is_null($prod_type_row);
 }
 
