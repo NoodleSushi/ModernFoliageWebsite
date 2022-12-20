@@ -59,11 +59,3 @@ function signoutClick(e){
 		}
         e.preventDefault();
 }
-
-
-
-
-
-
-// to add functions for placing orders (cust side), when they place it kay it should show up on their orders page and will also
-// reflect sa admin side

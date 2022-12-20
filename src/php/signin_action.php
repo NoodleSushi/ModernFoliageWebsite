@@ -22,7 +22,7 @@
 
     // Check if email already exists
     if($isValid){
-        $stmt = $con->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt = $con->prepare("SELECT * FROM customer WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
