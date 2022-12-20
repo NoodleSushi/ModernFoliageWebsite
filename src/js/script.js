@@ -1,7 +1,7 @@
 
 
 /**
- * test
+ * 
  * @function requestHandler
  * @description this method handles requests made by the frontend to the server
  * @param {*} type type of request e.g. POST, GET, PUT, DELETE, etc.
