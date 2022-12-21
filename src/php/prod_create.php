@@ -4,7 +4,7 @@ Creates a new row in the product table
 
 params:
     int prod_type_id        - product(ProductID)
-    int name                - product(Name), name of the product
+    str name                - product(Name), name of the product
     float? price            - product(Price), price of the product (optional, defaults to 0.0)
     int? avail_quantity     - stockinfo(AvailQuantity), quantity of the product (optional, defaults to 0.0)
     int? plant_species_id   - plantspecies(PlantSpeciesID), (optional), required if product type is "Plant"

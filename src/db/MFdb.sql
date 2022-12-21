@@ -183,7 +183,7 @@ CREATE TABLE stockinfo(
 );
 
 DELIMITER $$
-CREATE PROCEDURE createPotProduct(IN PROD_TYPE_ID INT, IN NAME VARCHAR(100), IN PRICE DECIMAL, IN AVAIL_QUANTITY INT, IN PLANT_SPECIES_ID INT, OUT PROD_ID INT)
+CREATE PROCEDURE createPlantProduct(IN PROD_TYPE_ID INT, IN NAME VARCHAR(100), IN PRICE DECIMAL, IN AVAIL_QUANTITY INT, IN PLANT_SPECIES_ID INT, OUT PROD_ID INT)
 BEGIN
 	INSERT INTO product (ProductTypeID, Name, Price) VALUES (PROD_TYPE_ID, NAME, PRICE);
 	SET PROD_ID = LAST_INSERT_ID();
@@ -223,16 +223,16 @@ BEGIN
     INSERT INTO producttypedisplay (ProductTypeID, Name)
     VALUES (2, "Pots");
     
-    CALL createPotProduct(1, "Eastern Elegance DGP", 975, 10, 1, prodid);
+    CALL createPlantProduct(1, "Eastern Elegance DGP", 975, 10, 1, prodid);
     CALL createProductDisplay(prodid, "img/homeplant.png", 0);
     
-    CALL createPotProduct(1, "Red Beauty DGP", 975, 10, 1, prodid);
+    CALL createPlantProduct(1, "Red Beauty DGP", 975, 10, 1, prodid);
     CALL createProductDisplay(prodid, "img/plant.png", 1);
     
-    CALL createPotProduct(1, "Red Beauty SGP", 725, 10, 1, prodid);
+    CALL createPlantProduct(1, "Red Beauty SGP", 725, 10, 1, prodid);
     CALL createProductDisplay(prodid, "img/plant.webp", 2);
     
-    CALL createPotProduct(1, "Red Glamour", 725, 10, 1, prodid);
+    CALL createPlantProduct(1, "Red Glamour", 725, 10, 1, prodid);
     CALL createProductDisplay(prodid, "img/homeplant.png", 3);
     
 END $$
