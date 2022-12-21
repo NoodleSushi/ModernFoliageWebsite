@@ -68,11 +68,20 @@ session_start();
                         <tr>
                             <th class="part">OrderID</th>
                             <th class="part">Customer Name</th>
-                            <th class="part">Status</th>
                             <th class="part">Delivery Mode</th>
                             <th class="part">Payment Mode</th>
                             <th class="part">Total Price</th>
                             <th class="part">Total Quantity</th>
+                            <th class="part">Done</th>
+                        </tr>
+                        <tr>
+                            <td class="part">21102036</th>
+                            <td class="part">Caitlin Mariel Lindsay</th>
+                            <td class="part">Lalamove</th>
+                            <td class="part">COD</th>
+                            <td class="part">500</th>
+                            <td class="part">1</th>
+                            <td class="part"><input type = "checkbox" class="check"/></th>
                         </tr>
                     </table>
                 </div>
