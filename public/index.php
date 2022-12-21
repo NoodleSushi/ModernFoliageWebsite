@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <script src="../src/js/script.js"></script>
     <link rel="stylesheet" href="../src/css/main.css">
     <script type="text/javascript" src="../src/js/auth.js"></script>
 </head>
@@ -20,7 +21,7 @@
 </div>
 <body><br><br><br><br><br>
     <div class="signup-form">
-        <form id="signinForm" method="get" onsubmit="signinSubmit(event)">
+        <form id="signinForm" method="get" onsubmit="requestHandler('POST','../src/php/signin_action.php', ['email', 'password'])">
             <h2 style="text-align: center;">Sign In</h2>
             <p style="text-align: center;">Please fill in this form to sign in to your account!</p>
             <hr>
