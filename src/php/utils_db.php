@@ -92,7 +92,7 @@ function list_prod_by_type(mysqli $con, int $prod_type_id): array
 
 // producttype
 
-function get_prod_type(mysqli $con, int $id): array|false|null
+function get_prodtype(mysqli $con, int $id): array|false|null
 {
     $stmt = $con->prepare("SELECT * FROM producttype WHERE ProductTypeID = ?");
     $stmt->bind_param("i", $id);
@@ -100,7 +100,7 @@ function get_prod_type(mysqli $con, int $id): array|false|null
     return $stmt->get_result()->fetch_assoc();
 }
 
-function list_prod_type(mysqli $con): array
+function list_prodtype(mysqli $con): array
 {
     $stmt = $con->prepare("SELECT * FROM producttype ORDER BY Name ASC");
     $stmt->execute();
@@ -148,7 +148,7 @@ function get_stockinfo(mysqli $con, int $prod_id): array|false|null
 
 // plantproperties
 
-function insert_plantproperties(mysqli $con, int $prod_id, int $plant_species_id): int
+function insert_plantprop(mysqli $con, int $prod_id, int $plant_species_id): int
 {
     $stmt = $con->prepare("INSERT INTO plantproperties (ProductID, PlantSpeciesID) VALUES (?, ?)");
     $stmt->bind_param("ii", $prod_id, $plant_species_id);
@@ -156,7 +156,7 @@ function insert_plantproperties(mysqli $con, int $prod_id, int $plant_species_id
     return intval($con->insert_id);
 }
 
-function get_plantproperties(mysqli $con, int $prod_id): array|false|null
+function get_plantprop(mysqli $con, int $prod_id): array|false|null
 {
     $stmt = $con->prepare("SELECT * FROM plantproperties WHERE ProductID = ?");
     $stmt->bind_param("i", $prod_id);
@@ -177,7 +177,7 @@ function list_plantspecies(mysqli $con): array
 
 // potproperties
 
-function insert_potproperties(mysqli $con, int $prod_id, int $pot_color_id): int
+function insert_potprop(mysqli $con, int $prod_id, int $pot_color_id): int
 {
     $stmt = $con->prepare("INSERT INTO potproperties (ProductID, PotColorID) VALUES (?, ?)");
     $stmt->bind_param("ii", $prod_id, $pot_color_id);
@@ -185,7 +185,7 @@ function insert_potproperties(mysqli $con, int $prod_id, int $pot_color_id): int
     return intval($con->insert_id);
 }
 
-function get_potproperties(mysqli $con, int $prod_id): array|false|null
+function get_potprop(mysqli $con, int $prod_id): array|false|null
 {
     $stmt = $con->prepare("SELECT * FROM potproperties WHERE ProductID = ?");
     $stmt->bind_param("i", $prod_id);
