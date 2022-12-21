@@ -5,7 +5,16 @@
 function get_prod_info(mysqli $con, int $prod_id): array|false|null
 {
     $stmt = $con->prepare(
-        "SELECT prodt.Name AS ProductType, p.Name AS Name, Price, AvailQuantity, plas.Name AS PlantSpecies, potc.Name AS PotColor
+        "SELECT
+            prodt.ProductTypeID AS ProductTypeID,
+            prodt.Name AS ProductType,
+            p.Name AS Name, 
+            Price, 
+            AvailQuantity, 
+            plas.PlantSpeciesID AS PlantSpeciesID,
+            plas.Name AS PlantSpecies,
+            potc.PotColorID AS PotColorID,
+            potc.Name AS PotColor
         FROM product AS p
         JOIN producttype AS prodt
             ON prodt.ProductTypeID = p.ProductTypeID
