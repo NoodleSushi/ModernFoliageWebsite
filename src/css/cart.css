@@ -1,0 +1,29 @@
+div .scroll{
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+}
+
+div .items{
+    background-color: whitesmoke;
+    height: auto;
+    width: 100%;
+    border: 2px;
+    padding: 1%;
+    border-radius: 10px;
+}
+
+.qr{
+    width: 12em;
+}
+
+.placeOrder{
+    color: white;
+    background-color: #314529;
+    border-radius: 5px;
+    padding: 1%;
+    border-color: whitesmoke;
+    float: right;
+    margin-right: 3%;
+}

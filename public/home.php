@@ -50,31 +50,31 @@ session_start();
           <hr class="border">
           </div>
           <div class="show">
-            <div class="card" type="button" echo "href="../src/public/page_product.php">
+            <div class="card" type="button" onclick="location.href='page_product.php'">
               <img alt="MF Pot" class="card_img" src="../img/pot.png">
               <p class="desc" >MUSKOT Plant pot</p>
               <strong >₱450</strong>
             </div>
 
-            <div class="card" type="button" href="../src/public/page_product.php">
+            <div class="card" type="button" onclick="location.href='page_product.php'">
               <img alt="MF Pot" class="card_img" src="../img/pot.png">
               <p class="desc">MUSKOT Plant pot</p>
               <strong>₱450</strong>
             </div>
             
-            <div class="card" type="button" href="../src/public/page_product.php">
+            <div class="card" type="button" onclick="location.href='page_product.php'">
               <img alt="MF Pot" class="card_img" src="../img/pot.png">
               <p class="desc">MUSKOT Plant pot</p>
               <strong>₱450</strong>
             </div>
 
-            <div class="card" type="button" href="../src/public/page_product.php">
+            <div class="card" type="button" onclick="location.href='page_product.php'">
               <img alt="MF Pot" class="card_img" src="../img/pot.png">
               <p class="desc">MUSKOT Plant pot</p>
               <strong>₱450</strong>
             </div>
 
-            <button name="btnfmorePots" class="browseMore" href="../src/public/pots.php">
+            <button name="btnfmorePots" class="browseMore" onclick="location.href='products.php'">
               <strong>Browse for more pots</strong>
               <img alt="Next Arrow" class="card_img" src="../img/arrow.png">
             </button>
@@ -88,31 +88,31 @@ session_start();
           </div>
         
           <div class="show">
-            <div class="card" type="button" href="../src/public/page_product.php">
+            <div class="card" type="button" onclick="location.href='page_product.php'">
               <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
               <p class="desc">FEJKA Artificial potted plant </p>
               <strong>₱450</strong>
             </div>
 
-            <div class="card" type="button" href="../src/public/page_product.php">
+            <div class="card" type="button" onclick="location.href='page_product.php'">
               <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
               <p class="desc">FEJKA Artificial potted plant </p>
               <strong>₱400</strong>
             </div>
 
-            <div class="card" type="button" href="../src/public/page_product.php">
+            <div class="card" type="button" onclick="location.href='page_product.php'">
               <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
               <p class="desc">FEJKA Artificial potted plant </p>
               <strong>₱400</strong>
             </div>
 
-            <div class="card" type="button" href="../src/public/page_product.php">
+            <div class="card" type="button" onclick="location.href='page_product.php'">
               <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
               <p class="desc">FEJKA Artificial potted plant </p>
               <strong>₱400</strong>
             </div>
 
-            <button name="btnfmorePlants" class="browseMore" href="../src/public/plants.php">
+            <button name="btnfmorePlants" class="browseMore" onclick="location.href='products.php'">
               <strong>Browse for more plants</strong>
               <img alt="Next Arrow" class="card_img" src="../img/arrow.png">
             </button>

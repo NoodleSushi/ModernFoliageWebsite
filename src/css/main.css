@@ -106,7 +106,7 @@ main{
 .show{
 
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 
@@ -211,4 +211,11 @@ main{
 
 .completed{
     border: 5px solid #314529;
+}
+
+/*products*/
+
+.productCards{
+    display: flex;
+    justify-content: space-evenly;
 }
