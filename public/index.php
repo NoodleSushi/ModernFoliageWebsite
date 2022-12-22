@@ -21,7 +21,7 @@
 </div>
 <body><br><br><br><br><br>
     <div class="signup-form">
-        <form id="signinForm" method="get" onsubmit="requestHandler('POST','../src/php/signin_action.php', ['email', 'password'], redirect, 'home.php')">
+        <form id="signinForm">
             <h2 style="text-align: center;">Sign In</h2>
             <p style="text-align: center;">Please fill in this form to sign in to your account!</p>
             <hr>
@@ -32,7 +32,7 @@
                 <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="required">
             </div>
             <div class="form-group">
-                <input type="submit" name="btnsignin" class="btn btn-primary btn-lg" value="Sign In"/>
+                <input type="button" onclick="submitLogin()" id="submitButton" name="btnsignin" class="btn btn-primary btn-lg" value="Sign In"/>
             </div>
         </form>
         <div class="hint-text">Don't have an account? <a href="signup.php">Sign up here</a></div>

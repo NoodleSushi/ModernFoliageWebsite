@@ -22,19 +22,43 @@ function requestHandler(type, url, data, callback, callbackArgs) {
             type: type,
             url: url,
             data: data,
-            success: callback()
+            success: function(response){console.log(response)}
         })
     } else if (callbackArgs) {
         $.ajax({
             type: type,
             url: url,
             data: data,
-            success: callback(callbackArgs)
+            success: function(res){
+                var response = JSON.parse(res);
+                if(response.status == 200){
+                    callback(callbackArgs)
+                }else{
+                    alert('You have entered an invalid email or password')
+                    console.log(response)
+                }
+            }
         })
     }
 }
+
+function submitLogin(){
+    var form = document.getElementById("signinForm");
+    if($('#signinForm')[0].checkValidity()){
+    requestHandler('POST','../src/php/signin_action.php', ['email', 'password'], redirectJquery, 'home.php');
+    }
+}
 function redirect(url){
-    window.location.href = url;
+    if(url[1] == 'replace'){
+        window.location.replace = url[0];
+    }
+    else{
+    window.location.href = url [0];
+    }
+}
+
+function redirectJquery(url){
+    jQuery(window).attr("location", url);
 }
 
     /**
