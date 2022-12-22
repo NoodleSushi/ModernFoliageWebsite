@@ -40,11 +40,12 @@ function list_prod(mysqli $con): array
     $stmt = $con->prepare(
         "SELECT
             p.ProductID AS ProductID,
+            COALESCE(pd.ThumbPath, '') AS ThumbPath,
             p.Name AS Name, 
-            Price, 
+            p.Price AS Price, 
             AvailQuantity AS Quantity,
-            COALESCE((
-                SELECT (SELECT AvailQuantity FROM stockinfo AS si WHERE si.ProductID = p.ProductID) - SUM(oi.Quantity)
+            (SELECT AvailQuantity FROM stockinfo AS si WHERE si.ProductID = p.ProductID) - COALESCE((
+                SELECT SUM(oi.Quantity)
                 FROM orderitem AS oi
                 WHERE	
                     oi.ProductID = p.ProductID
@@ -58,6 +59,8 @@ function list_prod(mysqli $con): array
         FROM product AS p
         JOIN stockinfo AS si
             ON si.ProductID = p.ProductID
+        LEFT JOIN productdisplay AS pd
+            ON pd.ProductID = p.ProductID
         ORDER BY Name ASC"
     );
     $stmt->execute();
@@ -69,11 +72,12 @@ function list_prod_by_type(mysqli $con, int $prod_type_id): array
     $stmt = $con->prepare(
         "SELECT
             p.ProductID AS ProductID,
+            COALESCE(pd.ThumbPath, '') AS ThumbPath,
             p.Name AS Name, 
-            Price, 
+            p.Price AS Price, 
             AvailQuantity AS Quantity,
-            COALESCE((
-                SELECT (SELECT AvailQuantity FROM stockinfo AS si WHERE si.ProductID = p.ProductID) - SUM(oi.Quantity)
+            (SELECT AvailQuantity FROM stockinfo AS si WHERE si.ProductID = p.ProductID) - COALESCE((
+                SELECT SUM(oi.Quantity)
                 FROM orderitem AS oi
                 WHERE	
                     oi.ProductID = p.ProductID
@@ -89,6 +93,8 @@ function list_prod_by_type(mysqli $con, int $prod_type_id): array
             ON prodt.ProductTypeID = p.ProductTypeID
         JOIN stockinfo AS si
             ON si.ProductID = p.ProductID
+        LEFT JOIN productdisplay AS pd
+            ON pd.ProductID = p.ProductID
         WHERE
             prodt.ProductTypeID = ?
         ORDER BY Name ASC"
