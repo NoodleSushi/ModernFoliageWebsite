@@ -21,7 +21,7 @@
 </div>
 <body><br><br><br><br><br>
     <div class="signup-form">
-        <form id="signinForm" method="get" onsubmit="requestHandler('POST','../src/php/signin_action.php', ['email', 'password'])">
+        <form id="signinForm" method="get" onsubmit="requestHandler('POST','../src/php/signin_action.php', ['email', 'password'], redirect, 'home.php')">
             <h2 style="text-align: center;">Sign In</h2>
             <p style="text-align: center;">Please fill in this form to sign in to your account!</p>
             <hr>
