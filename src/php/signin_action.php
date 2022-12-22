@@ -34,7 +34,7 @@ if ($isValid) {
         // $result = $sth->fetch();
         if ($row) {
             $status = 200;
-            $message = 'Login successful';
+            $message = "Login successful";
         }
         // } else {
         //     $retVal = "Invalid email or password.";
@@ -46,7 +46,7 @@ $myObj = array(
     "status" => $status,
     "message" => $message
 );
-$myJSON = json_encode($myObj, JSON_FORCE_OBJECT);
+$myJSON = json_encode($myObj);
 echo $myJSON;
 
 $con->close();
