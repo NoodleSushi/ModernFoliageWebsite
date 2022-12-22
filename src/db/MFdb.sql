@@ -178,6 +178,11 @@ INSERT INTO adminpriv (CustomerID) VALUES (LAST_INSERT_ID());
 INSERT INTO producttype (Name)
 VALUES ("Plant"), ("Pot");
 
+INSERT INTO producttypedisplay (ProductTypeID, Name, Description)
+VALUES 
+    (1, "Plants", "a variety of containers and vessels for growing and displaying plants, including traditional pots, hanging baskets, wall planters, and self-watering containers."),
+    (2, "Pots", "a diverse selection of live plants suitable for a variety of settings, including indoor and outdoor spaces, in a range of sizes and varieties.");
+
 INSERT INTO deliverymode (Name)
 VALUES ("Pickup"), ("Lalamove");
 
@@ -227,12 +232,6 @@ DELIMITER $$
 CREATE PROCEDURE generateSampleData()
 BEGIN
     DECLARE prodid INT;
-    
-    INSERT INTO producttypedisplay (ProductTypeID, Name)
-    VALUES (1, "Plants");
-    
-    INSERT INTO producttypedisplay (ProductTypeID, Name)
-    VALUES (2, "Pots");
     
     CALL createPlantProduct(1, "Eastern Elegance DGP", 975, 10, 1, prodid);
     CALL createProductDisplay(prodid, "img/homeplant.png", 0);
