@@ -111,9 +111,7 @@ function get_prodtype(mysqli $con, int $id): array|false|null
 
 function list_prodtype(mysqli $con): array
 {
-    $stmt = $con->prepare("SELECT * FROM producttype ORDER BY Name ASC");
-    $stmt->execute();
-    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    return $con->query("SELECT * FROM producttype ORDER BY Name ASC")->fetch_all(MYSQLI_ASSOC);
 }
 
 
@@ -178,9 +176,7 @@ function get_plantprop(mysqli $con, int $prod_id): array|false|null
 
 function list_plantspecies(mysqli $con): array
 {
-    $stmt = $con->prepare("SELECT * FROM plantspecies ORDER BY Name ASC");
-    $stmt->execute();
-    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    return $con->query("SELECT * FROM plantspecies ORDER BY Name ASC")->fetch_all(MYSQLI_ASSOC);
 }
 
 
@@ -207,7 +203,61 @@ function get_potprop(mysqli $con, int $prod_id): array|false|null
 
 function list_potcolor(mysqli $con): array
 {
-    $stmt = $con->prepare("SELECT * FROM potcolor ORDER BY Name ASC");
+    return $con->query("SELECT * FROM potcolor ORDER BY Name ASC")->fetch_all(MYSQLI_ASSOC);
+}
+
+
+// cart
+
+function establish_cart(mysqli $con, int $customer_id): void
+{
+    $stmt = $con->prepare("CALL establishCart(?)");
+    $stmt->bind_param("i", $customer_id);
+    $stmt->execute();
+}
+
+function get_cart_id(mysqli $con, int $customer_id): int
+{
+    establish_cart($con, $customer_id);
+    $stmt = $con->prepare("SELECT CartID FROM cart WHERE CustomerID = ?");
+    $stmt->bind_param("i", $customer_id);
+    $stmt->execute();
+    return intval($stmt->get_result()->fetch_assoc()["CartID"]) ?? -1;
+}
+
+function get_cart(mysqli $con, int $customer_id): array
+{
+    establish_cart($con, $customer_id);
+    $stmt = $con->prepare(
+        "SELECT 
+            ci.CartItemID AS CartItemID, 
+            ci.ProductID AS ProductID,
+            COALESCE(pd.Name, p.Name) AS Name,
+            ci.Quantity AS Quantity, 
+            p.Price AS PriceEach, 
+            ci.Quantity * p.Price AS PriceTotal,
+        FROM cart AS c
+        JOIN cartitem AS ci
+            ON ci.CartID = c.CartID
+        JOIN product AS p
+            ON p.ProductID = ci.ProductID
+        LEFT JOIN productdisplay AS pd
+            ON pd.ProductID = p.ProductID
+        WHERE
+            c.CustomerID = ?"
+    );
+    $stmt->bind_param("i", $customer_id);
     $stmt->execute();
     return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+// cartitem
+
+function insert_cartitem(mysqli $con, int $customer_id, int $prod_id, int $quantity): int
+{
+
+    $stmt = $con->prepare("INSERT INTO cartitem (CartID, ProductID, Quantity) VALUES (?, ?)");
+    $stmt->bind_param("iii", get_cart_id($con, $customer_id), $prod_id, $quantity);
+    $stmt->execute();
+    return intval($con->insert_id);
 }
