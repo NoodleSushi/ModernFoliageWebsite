@@ -64,10 +64,10 @@ session_start();
 
   <script type="text/javascript" src="../src/js/auth.js"></script>
   <script>
-    function showpot(description, price){
+    function showpot(description, price, path){
       console.log(description);
         $("#productCards").append('        <div class="card" type="button" onclick="location.href=\'page_product.php\'">\
-        <img alt="MF Pot" class="card_img" src="../img/pot.png">\
+        <img alt="MF Pot" class="card_img" src=' + path +'>\
           <p class="desc">'+ description + '</p>\
           <strong>' + price + '</strong>\
         </div>');
@@ -84,11 +84,8 @@ session_start();
               if(res["success"] == true){
                 let x;
                 for(x = 0; x < res["products"].length; x++){
-                  showpot(res["products"][x]["name"],res["products"][x]["price"]);
+                  showpot(res["products"][x]["name"],res["products"][x]["price"], res["products"][x]["thumb_path"]);
                 }
-                
-
-                //showCardIn($("#item_name").val(),$("#item_description").val());
 
               }
             }
