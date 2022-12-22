@@ -12,12 +12,12 @@ params:
 
 returns:
     {
-        "product_id": 4;
+        "product_id": 4,
         "success": true
     }
 
     {
-        "product_id": -1;
+        "product_id": -1,
         "success": false
     }
 */
