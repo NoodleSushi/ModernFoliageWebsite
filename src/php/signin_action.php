@@ -9,6 +9,7 @@ $password = trim($_REQUEST['password']);
 // $email = 'admin@gmail.com';
 // $password = 'adminpass';
 // Check fields are empty or not
+$message = "";
 if (empty($email) || empty($password)) {
     $isValid = false;
     $message = "Please fill all fields.";
