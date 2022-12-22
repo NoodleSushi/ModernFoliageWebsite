@@ -39,7 +39,7 @@ session_start();
           <button name="btnsignout" class="btn btn-secondary btn-lg" onclick="signoutClick(event)" style="background-color: transparent; border: none;">Sign Out</button>
           
         </div>
-      </nav>
+    </nav>
     <main>
 
 
