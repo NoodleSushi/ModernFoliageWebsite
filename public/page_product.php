@@ -38,7 +38,7 @@ $prod_id = $_REQUEST['prodid'] ?? -1;
         </div>
       </nav>
       <!-- still gotta figure out a way on how to display the specific product info using the php stuff + js -->
-    <div id="prod" class = "main_container">
+    <div id="prod" class = "main_container" hidden>
         <div class="column">
             <img alt="Plant" class="img_container" src="../img/plant.png">
         </div>
@@ -46,11 +46,11 @@ $prod_id = $_REQUEST['prodid'] ?? -1;
         <div class="column">
             <h2>Monstera Deliciosa</h2>
             <p class = "description">
-                ₱500 
-                <font color = "red">30% off </font> 
-                <strong>| 470 in stock</strong>
+                ₱<span class="price-text"></span> 
+                <!-- <font color = "red">30% off </font>  -->
+                <strong>| <span class="stock"></span> in stock</strong>
             </p>
-            <p class = "prize">₱350</p>
+            <p class = "prize">₱<span class="price-text">350</span></p>
             <br>
 
             <p class = "column_text">
@@ -129,18 +129,18 @@ $prod_id = $_REQUEST['prodid'] ?? -1;
             console.log(res);
             // console.log(res['products'][0]['id']);
             if (res['success'] === true) {
-              showpot(res['product']['name'], res['product']['price']);
-              
+              // showpot(res['product']['name'], res['product']['price']);
+              $("#prod").removeAttr("hidden");
+              $("#prod h2").text(res['product']['name']);
+              $("#prod .price-text").text(res['product']['price']);
+              $("#prod .stock").text(res['product']['avail_quantity']);
+              // $("#prod .img_container").attr("src", res['product']['thumb_img']);
+
             } else {
               console.log("hi");
               window.location.replace("home.php");
             }
           }
-        };
-
-        if ($prod_id == -1) {
-          header("Location: home.php");
-          exit;
         };
       }
     

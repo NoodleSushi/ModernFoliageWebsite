@@ -45,7 +45,7 @@
     if($isValid){
         $insertSQL = "INSERT INTO customer(fname,lname,email,password) values(?,?,?,?)";
         $stmt = $con->prepare($insertSQL);
-        $password = password_hash($password, PASSWORD_DEFAULT);
+        // $password = password_hash($password, PASSWORD_DEFAULT);
         $stmt->bind_param("ssss",$fname,$lname,$email,$password);
         $stmt->execute();
         $stmt->close();
