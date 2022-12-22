@@ -15,7 +15,9 @@ session_start();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Product Page</title>
 </head>
-<body>
+
+<!-- how do i get the product id?? (below is just a sample) -->
+<body onload="getProdInfo(1)">
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #314529;">
         <a class="logo-text" href="home.php" style="color: white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:x-large;">Modern Foliage</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,9 +36,10 @@ session_start();
           
         </div>
       </nav>
-    <div class = "main_container">
+      <!-- still gotta figure out a way on how to display the specific product info using the php stuff + js -->
+    <div id="prod" class = "main_container">
         <div class="column">
-            <img class="img_container" src="../img/plant.png">
+            <img alt="Plant" class="img_container" src="../img/plant.png">
         </div>
         
         <div class="column">
@@ -58,12 +61,84 @@ session_start();
                 Society Islands.
             </p>
             <br>
-            <button class = "button">Buy Now</button>
-            <button class = "button button2">Add to Cart</button>
+            <!-- <button class = "button">Buy Now</button> maybe we wont need this lng for now? -->
+            <button class = "button button2" onclick="addCart(2, 1, 1)">Add to Cart</button> <!--needs work on how to get the params-->
         </div>
     </div>
     <article>
         
     </article>
+
+    <script>
+      // function to add the item to cart (to test)
+      function addCartItem(customerId, prodId, quantity) {
+        // Create an XHR object
+        const xhr = new XMLHttpRequest();
+
+        // Set the URL for the request
+        const url = 'add_cartitem.php';
+
+        // Set the parameters for the POST request
+        const params = new URLSearchParams();
+        params.append('customer_id', customerId);
+        params.append('prod_id', prodId);
+        params.append('quantity', quantity);
+
+        // Send the POST request to the server
+        xhr.open('POST', url, true);
+        xhr.send(params);
+
+        // Wait for the server's response
+        xhr.onreadystatechange = function() {
+          if (this.readyState === 4 && this.status === 200) {
+            // Parse the server's response
+            const res = JSON.parse(this.responseText);
+            console.log(res['cart_item_id']);
+            console.log(res['success']);
+          }
+        };
+      }
+
+
+      // to revise?
+      function showpot(description, price){
+        console.log(description);
+          $("#productCards").append('        <div class="card" type="button" onclick="location.href=\'page_product.php\'">\
+          <img alt="MF Pot" class="card_img" src="../img/pot.png">\
+            <p class="desc">'+ description + '</p>\
+            <strong>' + price + '</strong>\
+          </div>');
+      }
+
+      //! how do i get the product ID T.T
+      // TO TEST
+      function getProdInfo(productId) {
+        // Set the parameters for the POST request
+        const params = new URLSearchParams();
+        params.append('productId', productId);
+
+        // Send the POST request to the server
+        xhttp.open('POST', '../src/php/prod_get.php', true);
+        xhttp.send(params);
+
+        // Wait for the server's response
+        xhttp.onreadystatechange = function() {
+          if (this.readyState === 4 && this.status === 200) {
+            // Parse the server's response
+            const res = JSON.parse(this.responseText);
+            console.log(res['products'][0]['id']);
+            if (res['success'] === true) {
+              // Iterate over the products array
+              let x;
+              for (x = 0; x < res['products'].length; x++) {
+                // Display the product information
+                showpot(res['products'][x]['name'], res['products'][x]['price']);
+              }
+            }
+          }
+        };
+      }
+    
+    </script>
 </body>
 </html>

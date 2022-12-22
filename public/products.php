@@ -48,6 +48,9 @@ session_start();
           <hr class="border">
 
           <div id="productCards">
+            <!-- maybe add like an onclick thing here wherein if they click the item, it'll redirect to
+            page_product but pass the item id along with it sd? -->
+
             <!--div class="show">
               <div class="card" type="button" onclick="'location.href='page_product.php'">
                 <img alt="MF Pot" class="card_img" src="../img/pot.png">
@@ -95,7 +98,11 @@ session_start();
           };
     }
 
-    
+    //! idk where and how to call this
+    function redirectToProductPage(event, productId) {
+      // Redirect to the page_product.php page and pass the product ID as a query parameter
+      window.location.href = `page_product.php?productId=${productId}`;
+    }
   </script>
 </body>
 
