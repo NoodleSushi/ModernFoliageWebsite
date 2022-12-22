@@ -19,7 +19,7 @@ session_start();
   <title>Modern Foliage Homepage</title>
 </head>
 
-<body onload="ready()">
+<body onload="getprod()">
   <div>
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #314529;">
         <a class="logo-text" href="home.php" style="color: white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:x-large;">Modern Foliage</a>
@@ -47,14 +47,14 @@ session_start();
           <h1 style="color: white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 250%;">PRODUCTS</h1>
           <hr class="border">
 
-          <div class="productCards">
-            <div class="show">
-            <div class="card" type="button" onclick="location.href='page_product.php'">
+          <div id="productCards">
+            <!--div class="show">
+              <div class="card" type="button" onclick="'location.href='page_product.php'">
                 <img alt="MF Pot" class="card_img" src="../img/pot.png">
-                <p style="margin-bottom: 0%; margin-top: 1.5%;">MUSKOT Plant pot</p>
-                <strong style="color: red;">₱450</strong>
+                <p>MUSKOT Plant pot</p>
+                <strong >₱450</strong>
               </div>
-            </div>
+            </div>-->
           </div>
           
             
@@ -63,6 +63,40 @@ session_start();
       </div>
 
   <script type="text/javascript" src="../src/js/auth.js"></script>
+  <script>
+    function showpot(description, price){
+      console.log(description);
+        $("#productCards").append('        <div class="card" type="button" onclick="location.href=\'page_product.php\'">\
+        <img alt="MF Pot" class="card_img" src="../img/pot.png">\
+          <p class="desc">'+ description + '</p>\
+          <strong>' + price + '</strong>\
+        </div>');
+
+    }
+
+    function getprod(){
+      xhttp.open("POST", "../src/php/prod_list.php", true);
+          xhttp.send();
+          xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+              var res = JSON.parse(this.responseText);
+              console.log(res["products"][0]["id"]);
+              if(res["success"] == true){
+                let x;
+                for(x = 0; x < res["products"].length; x++){
+                  showpot(res["products"][x]["name"],res["products"][x]["price"]);
+                }
+                
+
+                //showCardIn($("#item_name").val(),$("#item_description").val());
+
+              }
+            }
+          };
+    }
+
+    
+  </script>
 </body>
 
 </html>
