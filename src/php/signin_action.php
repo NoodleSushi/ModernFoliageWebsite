@@ -1,6 +1,5 @@
 <?php
 include_once("db_connect.php");
-$retVal = "";
 $isValid = true;
 $status = 400;
 $data = [];
@@ -12,32 +11,30 @@ $password = trim($_REQUEST['password']);
 // Check fields are empty or not
 if (empty($email) || empty($password)) {
     $isValid = false;
-    $retVal = "Please fill all fields.";
+    $message = "Please fill all fields.";
 }
 
 // Check if email is valid or not
 if ($isValid && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $isValid = false;
-    $retVal = "Invalid email.";
+    $message = "Invalid email.";
 }
 
 // Check if email already exists
 if ($isValid) {
-    $query = "SELECT * FROM customer WHERE Email = ? AND Password = ?";
+    $query = "SELECT * FROM customer WHERE Email = '{$email}' AND Password = '{$password}'";
     if ($con->connect_error) {
         $status = 201;
-        $retVal = "The sky is falling";
-        $data = "test";
+        $message = "test";
     }
     // if($result->num_rows > 0){
     else {
-        $sth = $con->prepare($query);
-        $sth->execute(array($email, $password));
-        $result = $sth->fetch();
-        if ($result) {
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+        // $result = $sth->fetch();
+        if ($row) {
             $status = 200;
-            $retVal = "Login successful.";
-            $data = "test";
+            $message = 'Login successful';
         }
         // } else {
         //     $retVal = "Invalid email or password.";
@@ -47,8 +44,7 @@ if ($isValid) {
 
 $myObj = array(
     "status" => $status,
-    "data" => $data,
-    "message" => $retVal
+    "message" => $message
 );
 $myJSON = json_encode($myObj, JSON_FORCE_OBJECT);
 echo $myJSON;
