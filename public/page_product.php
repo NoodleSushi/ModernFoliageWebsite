@@ -137,6 +137,11 @@ $prod_id = $_REQUEST['prodid'] ?? -1;
             }
           }
         };
+
+        if ($prod_id == -1) {
+          header("Location: home.php");
+          exit;
+        };
       }
     
     </script>
