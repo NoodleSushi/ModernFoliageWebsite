@@ -103,13 +103,29 @@ main{
 }
 
 
-.show{
-
+#pot{
     display: flex;
     justify-content: space-evenly;
 }
 
+#plant{
+    display: flex;
+    justify-content: space-evenly;
+}
 
+#productCards{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.show .p{
+    margin-bottom: 0%;
+    margin-top: 1.5%;
+}
+
+.show strong{
+    color: red;
+}
 
 
 .title{
