@@ -40,9 +40,6 @@ CREATE TABLE producttype(
     PRIMARY KEY (ProductTypeID)
 );
 
-INSERT INTO producttype (Name)
-VALUES ("Plant"), ("Pot");
-
 CREATE TABLE producttypedisplay(
     ProductTypeDisplayID INT(11) AUTO_INCREMENT NOT NULL,
     ProductTypeID INT(11) NOT NULL,
@@ -93,9 +90,6 @@ CREATE TABLE deliverymode(
     PRIMARY KEY (DeliveryModeID)
 );
 
-INSERT INTO deliverymode (Name)
-VALUES ("Pickup"), ("Lalamove");
-
 CREATE TABLE galleryphoto(
     GalleryPhotoID INT(11) AUTO_INCREMENT NOT NULL,
     ProductDisplayID INT(11) NOT NULL,
@@ -140,9 +134,6 @@ CREATE TABLE plantspecies(
     PRIMARY KEY (PlantSpeciesID)
 );
 
-INSERT INTO plantspecies (Name)
-VALUES ("Aglaonema"), ("Alocasia"), ("Anthurium"), ("Asplenium"), ("Begonia"), ("Calathea"), ("Dieffenbachia"), ("Ficus"), ("Maranta Leuconeura"), ("Monstera"), ("Musa"), ("Philodendron"), ("Pilea"), ("Platecyrium"), ("Raphidophora"), ("Spathiphyllum"), ("Syngonium"), ("Xanthosoma");
-
 CREATE TABLE plantproperties(
     PlantPropertiesID INT(11) AUTO_INCREMENT NOT NULL,
     ProductID INT(11) NOT NULL,
@@ -159,9 +150,6 @@ CREATE TABLE potcolor(
 
     PRIMARY KEY (PotColorID)
 );
-
-INSERT INTO potcolor (Name)
-VALUES ("white"), ("brown"), ("white & gold"), ("gold & brown"), ("white washed"), ("gray"), ("brown & beige"), ("gold & green"), ("beige"), ("white/washed");
 
 CREATE TABLE potproperties(
     PotPropertiesID INT(11) AUTO_INCREMENT NOT NULL,
@@ -181,6 +169,25 @@ CREATE TABLE stockinfo(
     PRIMARY KEY (StockInfoID),
     FOREIGN KEY (ProductID) REFERENCES product(ProductID)
 );
+
+--
+
+INSERT INTO customer (Fname, Lname, Email, Password) VALUES ("Admin", "Admin", "admin@gmail.com", "adminpass");
+INSERT INTO adminpriv (CustomerID) VALUES (LAST_INSERT_ID());
+
+INSERT INTO producttype (Name)
+VALUES ("Plant"), ("Pot");
+
+INSERT INTO deliverymode (Name)
+VALUES ("Pickup"), ("Lalamove");
+
+INSERT INTO plantspecies (Name)
+VALUES ("Aglaonema"), ("Alocasia"), ("Anthurium"), ("Asplenium"), ("Begonia"), ("Calathea"), ("Dieffenbachia"), ("Ficus"), ("Maranta Leuconeura"), ("Monstera"), ("Musa"), ("Philodendron"), ("Pilea"), ("Platecyrium"), ("Raphidophora"), ("Spathiphyllum"), ("Syngonium"), ("Xanthosoma");
+
+INSERT INTO potcolor (Name)
+VALUES ("White"), ("Brown"), ("White & Gold"), ("Gold & Brown"), ("White Washed"), ("Gray"), ("Brown & Beige"), ("Gold & Green"), ("Beige"), ("White/Washed");
+
+-- 
 
 DELIMITER $$
 CREATE PROCEDURE createPlantProduct(IN PROD_TYPE_ID INT, IN NAME VARCHAR(100), IN PRICE DECIMAL, IN AVAIL_QUANTITY INT, IN PLANT_SPECIES_ID INT, OUT PROD_ID INT)
@@ -210,12 +217,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE generateSampleData()
 BEGIN
-	DECLARE adminid INT;
     DECLARE prodid INT;
-    
-    INSERT INTO customer (Fname, Lname, Email, Password) VALUES ("Admin", "Admin", "admin@gmail.com", "adminpass");
-    SET adminid = LAST_INSERT_ID();
-    INSERT INTO adminpriv (CustomerID) VALUES (adminid);
     
     INSERT INTO producttypedisplay (ProductTypeID, Name)
     VALUES (1, "Plants");
