@@ -10,6 +10,7 @@ returns:
         "products": [
             {
                 "id: 1,
+                "thumb_path": "../img/plant.png",
                 "name": "my plant",
                 "price": 50.4,
                 "quantity": 10,
@@ -39,9 +40,10 @@ $products = array();
 foreach ($query_list as $row) {
     $products[] = array(
         "id" => intval($row["ProductID"]),
+        "thumb_path" => $row["ThumbPath"],
         "name" => $row["Name"],
         "price" => floatval($row["Price"]),
-        "quantity" => intval($row["Name"]),
+        "quantity" => intval($row["Quantity"]),
         "remaining_quantity" => intval($row["RemainingQuantity"]),
         "running_balance" => floatval($row["RunningBalance"]),
     );
