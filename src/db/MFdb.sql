@@ -187,6 +187,15 @@ VALUES ("Aglaonema"), ("Alocasia"), ("Anthurium"), ("Asplenium"), ("Begonia"), (
 INSERT INTO potcolor (Name)
 VALUES ("White"), ("Brown"), ("White & Gold"), ("Gold & Brown"), ("White Washed"), ("Gray"), ("Brown & Beige"), ("Gold & Green"), ("Beige"), ("White/Washed");
 
+DELIMITER $$
+CREATE PROCEDURE establishCart(IN CustomerID INT)
+BEGIN
+    IF (SELECT CartID FROM cart AS c WHERE c.CustomerID = CustomerID) IS NULL THEN
+		INSERT INTO cart (CustomerID) VALUES (CustomerID);
+	END IF;
+END $$
+DELIMITER ;
+
 -- 
 
 DELIMITER $$
