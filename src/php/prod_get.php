@@ -42,9 +42,11 @@ include_once("db_connect.php");
 include_once("utils_db.php");
 
 $success = true;
-$prod = array();
 
 $prod_id = parse_param("i", "prod_id", $success);
+
+$prod_row = array();
+$prod = array();
 
 if ($success) {
     $prod_row = get_prod_info($con, $prod_id);
