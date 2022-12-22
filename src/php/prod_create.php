@@ -12,12 +12,12 @@ params:
 
 returns:
     {
-        "product_id": 4;
+        "product_id": 4,
         "success": true
     }
 
     {
-        "product_id": -1;
+        "product_id": -1,
         "success": false
     }
 */
@@ -40,7 +40,7 @@ $prod_id = -1;
 
 // check if prod_type is valid
 if ($success) {
-    $prod_type_row = get_prod_type($con, $prod_type_id);
+    $prod_type_row = get_prodtype($con, $prod_type_id);
     $success = !is_null($prod_type_row);
 }
 
@@ -50,11 +50,11 @@ if ($success) {
     if ($prod_type == "Plant" && !is_null($plant_species_id)) {
         $prod_id = insert_prod($con, $prod_type_id, $name, $price);
         insert_stockinfo($con, $prod_id, $avail_quantity);
-        insert_plantproperties($con, $prod_id, $plant_species_id);
+        insert_plantprop($con, $prod_id, $plant_species_id);
     } else if ($prod_type == "Pot" && !is_null($pot_color_id)) {
         $prod_id = insert_prod($con, $prod_type_id, $name, $price);
         insert_stockinfo($con, $prod_id, $avail_quantity);
-        insert_potproperties($con, $prod_id, $pot_color_id);
+        insert_potprop($con, $prod_id, $pot_color_id);
     } else {
         $success = false;
     }

@@ -40,9 +40,6 @@ CREATE TABLE producttype(
     PRIMARY KEY (ProductTypeID)
 );
 
-INSERT INTO producttype (Name)
-VALUES ("Plant"), ("Pot");
-
 CREATE TABLE producttypedisplay(
     ProductTypeDisplayID INT(11) AUTO_INCREMENT NOT NULL,
     ProductTypeID INT(11) NOT NULL,
@@ -93,9 +90,6 @@ CREATE TABLE deliverymode(
     PRIMARY KEY (DeliveryModeID)
 );
 
-INSERT INTO deliverymode (Name)
-VALUES ("Pickup"), ("Lalamove");
-
 CREATE TABLE galleryphoto(
     GalleryPhotoID INT(11) AUTO_INCREMENT NOT NULL,
     ProductDisplayID INT(11) NOT NULL,
@@ -114,7 +108,7 @@ CREATE TABLE orders(
     Address VARCHAR(150) NOT NULL,
     Price decimal(10,2) NOT NULL,
     Dates date NOT NULL,
-    Completed TINYINT(1) DEFAULT 0,
+    Completed TINYINT(1) DEFAULT 0 NOT NULL,
 
     PRIMARY KEY (OrderID),
     FOREIGN KEY (CustomerID) REFERENCES customer(CustomerID),
@@ -140,9 +134,6 @@ CREATE TABLE plantspecies(
     PRIMARY KEY (PlantSpeciesID)
 );
 
-INSERT INTO plantspecies (Name)
-VALUES ("Aglaonema"), ("Alocasia"), ("Anthurium"), ("Asplenium"), ("Begonia"), ("Calathea"), ("Dieffenbachia"), ("Ficus"), ("Maranta Leuconeura"), ("Monstera"), ("Musa"), ("Philodendron"), ("Pilea"), ("Platecyrium"), ("Raphidophora"), ("Spathiphyllum"), ("Syngonium"), ("Xanthosoma");
-
 CREATE TABLE plantproperties(
     PlantPropertiesID INT(11) AUTO_INCREMENT NOT NULL,
     ProductID INT(11) NOT NULL,
@@ -159,9 +150,6 @@ CREATE TABLE potcolor(
 
     PRIMARY KEY (PotColorID)
 );
-
-INSERT INTO potcolor (Name)
-VALUES ("white"), ("brown"), ("white & gold"), ("gold & brown"), ("white washed"), ("gray"), ("brown & beige"), ("gold & green"), ("beige"), ("white/washed");
 
 CREATE TABLE potproperties(
     PotPropertiesID INT(11) AUTO_INCREMENT NOT NULL,
@@ -182,13 +170,56 @@ CREATE TABLE stockinfo(
     FOREIGN KEY (ProductID) REFERENCES product(ProductID)
 );
 
+--
+
+INSERT INTO customer (Fname, Lname, Email, Password) VALUES ("Admin", "Admin", "admin@gmail.com", "adminpass");
+INSERT INTO adminpriv (CustomerID) VALUES (LAST_INSERT_ID());
+
+INSERT INTO producttype (Name)
+VALUES ("Plant"), ("Pot");
+
+INSERT INTO producttypedisplay (ProductTypeID, Name, Description)
+VALUES 
+    (1, "Plants", "a variety of containers and vessels for growing and displaying plants, including traditional pots, hanging baskets, wall planters, and self-watering containers."),
+    (2, "Pots", "a diverse selection of live plants suitable for a variety of settings, including indoor and outdoor spaces, in a range of sizes and varieties.");
+
+INSERT INTO deliverymode (Name)
+VALUES ("Pickup"), ("Lalamove");
+
+INSERT INTO plantspecies (Name)
+VALUES ("Aglaonema"), ("Alocasia"), ("Anthurium"), ("Asplenium"), ("Begonia"), ("Calathea"), ("Dieffenbachia"), ("Ficus"), ("Maranta Leuconeura"), ("Monstera"), ("Musa"), ("Philodendron"), ("Pilea"), ("Platecyrium"), ("Raphidophora"), ("Spathiphyllum"), ("Syngonium"), ("Xanthosoma");
+
+INSERT INTO potcolor (Name)
+VALUES ("White"), ("Brown"), ("White & Gold"), ("Gold & Brown"), ("White Washed"), ("Gray"), ("Brown & Beige"), ("Gold & Green"), ("Beige"), ("White/Washed");
+
 DELIMITER $$
-CREATE PROCEDURE createPlantProduct(IN PROD_TYPE_ID INT, IN NAME VARCHAR(100), IN PRICE DECIMAL, IN AVAIL_QUANTITY INT, IN PLANT_SPECIES_ID INT, OUT PROD_ID INT)
+CREATE PROCEDURE establishCart(IN CustomerID INT)
 BEGIN
-	INSERT INTO product (ProductTypeID, Name, Price) VALUES (PROD_TYPE_ID, NAME, PRICE);
+    IF (SELECT CartID FROM cart AS c WHERE c.CustomerID = CustomerID) IS NULL THEN
+		INSERT INTO cart (CustomerID) VALUES (CustomerID);
+	END IF;
+END $$
+DELIMITER ;
+
+-- 
+
+DELIMITER $$
+CREATE PROCEDURE createPlantProduct(IN NAME VARCHAR(100), IN PRICE DECIMAL, IN AVAIL_QUANTITY INT, IN PLANT_SPECIES_ID INT, OUT PROD_ID INT)
+BEGIN
+	INSERT INTO product (ProductTypeID, Name, Price) VALUES (1, NAME, PRICE);
 	SET PROD_ID = LAST_INSERT_ID();
     INSERT INTO stockinfo (ProductID, AvailQuantity) VALUES (PROD_ID, AVAIL_QUANTITY);
     INSERT INTO plantproperties (ProductID, PlantSpeciesID) VALUES (PROD_ID, PLANT_SPECIES_ID);
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE createPotProduct(IN NAME VARCHAR(100), IN PRICE DECIMAL, IN AVAIL_QUANTITY INT, IN POT_COLOR_ID INT, OUT PROD_ID INT)
+BEGIN
+	INSERT INTO product (ProductTypeID, Name, Price) VALUES (2, NAME, PRICE);
+	SET PROD_ID = LAST_INSERT_ID();
+    INSERT INTO stockinfo (ProductID, AvailQuantity) VALUES (PROD_ID, AVAIL_QUANTITY);
+    INSERT INTO potproperties (ProductID, PotColorID) VALUES (PROD_ID, POT_COLOR_ID);
 END $$
 DELIMITER ;
 
@@ -210,32 +241,38 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE generateSampleData()
 BEGIN
-	DECLARE adminid INT;
     DECLARE prodid INT;
     
-    INSERT INTO customer (Fname, Lname, Email, Password) VALUES ("Admin", "Admin", "admin@gmail.com", "adminpass");
-    SET adminid = LAST_INSERT_ID();
-    INSERT INTO adminpriv (CustomerID) VALUES (adminid);
+    CALL createPlantProduct("Aglaonema Eastern Elegance DGP", 975, 10, 1, prodid);
+    CALL createProductDisplay(prodid, "../img/homeplant.png", 0);
     
-    INSERT INTO producttypedisplay (ProductTypeID, Name)
-    VALUES (1, "Plants");
+    CALL createPlantProduct("Aglaonema Red Beauty DGP", 975, 10, 1, prodid);
+    CALL createProductDisplay(prodid, "../img/plant.png", 1);
     
-    INSERT INTO producttypedisplay (ProductTypeID, Name)
-    VALUES (2, "Pots");
+    CALL createPlantProduct("Aglaonema Red Beauty SGP", 725, 10, 1, prodid);
+    CALL createProductDisplay(prodid, "../img/plant.webp", 2);
     
-    CALL createPlantProduct(1, "Eastern Elegance DGP", 975, 10, 1, prodid);
-    CALL createProductDisplay(prodid, "img/homeplant.png", 0);
+    CALL createPlantProduct("Aglaonema Red Glamour", 725, 10, 1, prodid);
+    CALL createProductDisplay(prodid, "../img/homeplant.png", 3);
+
+    CALL createPotProduct("White Buyog XL", 750, 10, 1, prodid);
+    CALL createProductDisplay(prodid, "../img/pot.png", 0);
+
+    CALL createPotProduct("White Buyog L", 520, 10, 1, prodid);
+    CALL createProductDisplay(prodid, "../img/pot.png", 1);
     
-    CALL createPlantProduct(1, "Red Beauty DGP", 975, 10, 1, prodid);
-    CALL createProductDisplay(prodid, "img/plant.png", 1);
-    
-    CALL createPlantProduct(1, "Red Beauty SGP", 725, 10, 1, prodid);
-    CALL createProductDisplay(prodid, "img/plant.webp", 2);
-    
-    CALL createPlantProduct(1, "Red Glamour", 725, 10, 1, prodid);
-    CALL createProductDisplay(prodid, "img/homeplant.png", 3);
+    CALL createPotProduct("White Buyog M", 450, 10, 1, prodid);
+    CALL createProductDisplay(prodid, "../img/pot.png", 2);
+
+    CALL createPotProduct("White Buyog S", 400, 10, 1, prodid);
+    CALL createProductDisplay(prodid, "../img/pot.png", 3);
     
 END $$
 DELIMITER ;
 
 CALL generateSampleData();
+
+DROP PROCEDURE generateSampleData;
+DROP PROCEDURE createProductDisplay;
+DROP PROCEDURE createPlantProduct;
+DROP PROCEDURE createPotProduct;

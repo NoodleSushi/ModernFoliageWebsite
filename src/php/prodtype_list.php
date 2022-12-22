@@ -7,11 +7,13 @@ returns:
         "product_types": [
             {
                 "id: 1,
-                "name": "Plant"
+                "name": "Plant",
+                "description": "plant description"
             },
             {
                 "id: 2,
-                "name": "Pot"
+                "name": "Pot",
+                "description": "pot description"
             }
         ]
         "success": true
@@ -29,10 +31,11 @@ include_once("utils_db.php");
 
 $product_types = array();
 
-foreach (list_prod_type($con) as $row) {
+foreach (list_prodtype($con) as $row) {
     $product_types[] = array(
         "id" => intval($row["ProductTypeID"]),
-        "name" => $row["Name"]
+        "name" => $row["Name"],
+        "description" => $row["Description"]
     );
 }
 
