@@ -49,7 +49,7 @@ session_start();
           <h1 class="title">POTS</h1>
           <hr class="border">
           </div>
-          <div class="show">
+          <div id="pot">
             <div class="card" type="button" onclick="location.href='page_product.php'">
               <img alt="MF Pot" class="card_img" src="../img/pot.png">
               <p class="desc" >MUSKOT Plant pot</p>
@@ -87,7 +87,7 @@ session_start();
           <hr class="border">
           </div>
         
-          <div class="show">
+          <div id="plant">
             <div class="card" type="button" onclick="location.href='page_product.php'">
               <img alt="MF Pot" class="card_img" src="../img/homeplant.png">
               <p class="desc">FEJKA Artificial potted plant </p>
@@ -122,6 +122,16 @@ session_start();
       </div>
   </main>
   <script type="text/javascript" src="../src/js/auth.js"></script>
+  <script>
+    function showpot(id,title,content,status){
+        $("#pot").append('        <div class="card" type="button" onclick="location.href=\'page_product.php\'">\
+        <img alt="MF Pot" class="card_img" src="../img/pot.png">\
+          <p class="desc">'+ description + '</p>\
+          <strong>' + price + '</strong>\
+        </div>');
+    }
+
+  </script>
 </body>
 
 </html>
