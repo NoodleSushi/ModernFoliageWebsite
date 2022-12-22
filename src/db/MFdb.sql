@@ -241,3 +241,7 @@ END $$
 DELIMITER ;
 
 CALL generateSampleData();
+
+DROP PROCEDURE generateSampleData;
+DROP PROCEDURE createProductDisplay;
+DROP PROCEDURE createPlantProduct;
