@@ -1,9 +1,6 @@
 <?php
 session_start();
-if ($_REQUEST['prodid'] == -1) {
-  header("Location: home.php");
-  exit;
-}
+$prod_id = $_REQUEST['prodid'] ?? -1;
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +18,7 @@ if ($_REQUEST['prodid'] == -1) {
 </head>
 
 <!-- how do i get the product id?? (below is just a sample) -->
-<body onload="getProdInfo(<?$_REQUEST['prodid'] ?? -1 ?>)">
+<body onload="getProdInfo(<?= $prod_id ?>)">
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #314529;">
         <a class="logo-text" href="home.php" style="color: white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:x-large;">Modern Foliage</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,26 +115,25 @@ if ($_REQUEST['prodid'] == -1) {
       // TO TEST
       function getProdInfo(productId) {
         // Set the parameters for the POST request
-        const params = new URLSearchParams();
-        params.append('productId', productId);
+        const xhttp = new XMLHttpRequest();
 
         // Send the POST request to the server
-        xhttp.open('POST', '../src/php/prod_get.php', true);
-        xhttp.send(params);
+        xhttp.open('GET', '../src/php/prod_get.php?prod_id=' + productId, true);
+        xhttp.send();
 
         // Wait for the server's response
         xhttp.onreadystatechange = function() {
           if (this.readyState === 4 && this.status === 200) {
             // Parse the server's response
             const res = JSON.parse(this.responseText);
-            console.log(res['products'][0]['id']);
+            console.log(res);
+            // console.log(res['products'][0]['id']);
             if (res['success'] === true) {
-              // Iterate over the products array
-              let x;
-              for (x = 0; x < res['products'].length; x++) {
-                // Display the product information
-                showpot(res['products'][x]['name'], res['products'][x]['price']);
-              }
+              showpot(res['product']['name'], res['product']['price']);
+              
+            } else {
+              console.log("hi");
+              window.location.replace("home.php");
             }
           }
         };
