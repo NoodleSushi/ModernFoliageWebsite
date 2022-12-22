@@ -15,6 +15,7 @@
     <script src="../src/js/script.js"></script>
     <link rel="stylesheet" href="../src/css/main.css">
     <script type="text/javascript" src="../src/js/auth.js"></script>
+
 </head>
 <div>
     <h2 class="headerstyle">Modern Foliage</h2>
