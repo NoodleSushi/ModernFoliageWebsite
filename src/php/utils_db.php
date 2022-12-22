@@ -111,7 +111,16 @@ function get_prodtype(mysqli $con, int $id): array|false|null
 
 function list_prodtype(mysqli $con): array
 {
-    return $con->query("SELECT * FROM producttype ORDER BY Name ASC")->fetch_all(MYSQLI_ASSOC);
+    return $con->query(
+        "SELECT
+            pt.ProductTypeID AS ProductTypeID,
+            COALESCE(ptd.Name, pt.Name) AS Name,
+            ptd.Description AS Description
+        FROM producttype AS pt
+        LEFT JOIN producttypedisplay AS ptd
+            ON ptd.ProductTypeID = pt.ProductTypeID
+        ORDER BY Name ASC"
+    )->fetch_all(MYSQLI_ASSOC);
 }
 
 
