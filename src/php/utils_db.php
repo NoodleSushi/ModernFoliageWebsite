@@ -111,7 +111,16 @@ function get_prodtype(mysqli $con, int $id): array|false|null
 
 function list_prodtype(mysqli $con): array
 {
-    return $con->query("SELECT * FROM producttype ORDER BY Name ASC")->fetch_all(MYSQLI_ASSOC);
+    return $con->query(
+        "SELECT
+            pt.ProductTypeID AS ProductTypeID,
+            COALESCE(ptd.Name, pt.Name) AS Name,
+            ptd.Description AS Description
+        FROM producttype AS pt
+        LEFT JOIN producttypedisplay AS ptd
+            ON ptd.ProductTypeID = pt.ProductTypeID
+        ORDER BY Name ASC"
+    )->fetch_all(MYSQLI_ASSOC);
 }
 
 
@@ -225,7 +234,18 @@ function get_cart_id(mysqli $con, int $customer_id): int
     return intval($stmt->get_result()->fetch_assoc()["CartID"]) ?? -1;
 }
 
-function get_cart(mysqli $con, int $customer_id): array
+// cartitem
+
+function insert_cartitem(mysqli $con, int $customer_id, int $prod_id, int $quantity): int
+{
+
+    $stmt = $con->prepare("INSERT INTO cartitem (CartID, ProductID, Quantity) VALUES (?, ?)");
+    $stmt->bind_param("iii", get_cart_id($con, $customer_id), $prod_id, $quantity);
+    $stmt->execute();
+    return intval($con->insert_id);
+}
+
+function list_cartitem(mysqli $con, int $customer_id): array
 {
     establish_cart($con, $customer_id);
     $stmt = $con->prepare(
@@ -233,6 +253,7 @@ function get_cart(mysqli $con, int $customer_id): array
             ci.CartItemID AS CartItemID, 
             ci.ProductID AS ProductID,
             COALESCE(pd.Name, p.Name) AS Name,
+            COALESCE(pd.ThumbPath, '') AS ThumbPath,
             ci.Quantity AS Quantity, 
             p.Price AS PriceEach, 
             ci.Quantity * p.Price AS PriceTotal,
@@ -249,15 +270,4 @@ function get_cart(mysqli $con, int $customer_id): array
     $stmt->bind_param("i", $customer_id);
     $stmt->execute();
     return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-}
-
-// cartitem
-
-function insert_cartitem(mysqli $con, int $customer_id, int $prod_id, int $quantity): int
-{
-
-    $stmt = $con->prepare("INSERT INTO cartitem (CartID, ProductID, Quantity) VALUES (?, ?)");
-    $stmt->bind_param("iii", get_cart_id($con, $customer_id), $prod_id, $quantity);
-    $stmt->execute();
-    return intval($con->insert_id);
 }
