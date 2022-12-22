@@ -1,9 +1,6 @@
 <?php
 session_start();
-if ($_REQUEST['prodid'] == -1) {
-  header("Location: home.php");
-  exit;
-}
+$prod_id = $_REQUEST['prodid'];
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +18,7 @@ if ($_REQUEST['prodid'] == -1) {
 </head>
 
 <!-- how do i get the product id?? (below is just a sample) -->
-<body onload="getProdInfo(<?$_REQUEST['prodid'] ?? -1 ?>)">
+<body onload="getProdInfo(<? $prod_id ?>)">
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #314529;">
         <a class="logo-text" href="home.php" style="color: white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:x-large;">Modern Foliage</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -140,6 +137,11 @@ if ($_REQUEST['prodid'] == -1) {
               }
             }
           }
+        };
+
+        if ($prod_id == -1) {
+          header("Location: home.php");
+          exit;
         };
       }
     
